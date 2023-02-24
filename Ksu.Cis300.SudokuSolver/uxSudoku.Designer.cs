@@ -41,9 +41,9 @@
             // 
             this.uxFlowPanel.AutoSize = true;
             this.uxFlowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.uxFlowPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.uxFlowPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.uxFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.uxFlowPanel.Location = new System.Drawing.Point(0, 36);
+            this.uxFlowPanel.Location = new System.Drawing.Point(0, 35);
             this.uxFlowPanel.MinimumSize = new System.Drawing.Size(50, 50);
             this.uxFlowPanel.Name = "uxFlowPanel";
             this.uxFlowPanel.Size = new System.Drawing.Size(50, 50);
@@ -58,7 +58,7 @@
             this.puzzleToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 36);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -69,27 +69,27 @@
             this.ux9x9,
             this.uxSolve});
             this.puzzleToolStripMenuItem.Name = "puzzleToolStripMenuItem";
-            this.puzzleToolStripMenuItem.Size = new System.Drawing.Size(77, 29);
+            this.puzzleToolStripMenuItem.Size = new System.Drawing.Size(77, 32);
             this.puzzleToolStripMenuItem.Text = "Puzzle";
             // 
             // ux4x4
             // 
             this.ux4x4.Name = "ux4x4";
-            this.ux4x4.Size = new System.Drawing.Size(270, 34);
+            this.ux4x4.Size = new System.Drawing.Size(157, 34);
             this.ux4x4.Text = "4x4";
             this.ux4x4.Click += new System.EventHandler(this.ux4x4_Click);
             // 
             // ux9x9
             // 
             this.ux9x9.Name = "ux9x9";
-            this.ux9x9.Size = new System.Drawing.Size(270, 34);
+            this.ux9x9.Size = new System.Drawing.Size(157, 34);
             this.ux9x9.Text = "9x9";
             this.ux9x9.Click += new System.EventHandler(this.ux9x9_Click);
             // 
             // uxSolve
             // 
             this.uxSolve.Name = "uxSolve";
-            this.uxSolve.Size = new System.Drawing.Size(270, 34);
+            this.uxSolve.Size = new System.Drawing.Size(157, 34);
             this.uxSolve.Text = "Solve";
             this.uxSolve.Click += new System.EventHandler(this.uxSolve_Click);
             // 
@@ -99,8 +99,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(800, 449);
             this.Controls.Add(this.uxFlowPanel);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace Ksu.Cis300.SudokuSolver
     {
         private const int _smallBlock = 2;
 
-        private const int _block = 9;
+        private const int _block = 3;
 
         private const int _margin = 1;
 
@@ -45,13 +46,19 @@ namespace Ksu.Cis300.SudokuSolver
             
             int row = box.Name[0] - '0';
             int column = box.Name[1] - '0';
-
+            char c = '0';
             string text = box.Text;
+            if (box.Text.Length == 1)
+            {
+               c = box.Text[0];
+            }
+
             if (box.Text == "")
             {
                 box.Text = "";
+                _puzzle[row, column] = 0;
             }
-            else if (box.Text.Length == 1 && (text == "1" || text == "2" || text == "3" || text == "4" || text == "5" || text == "6" || text == "7" || text == "8" || text == "9"))
+            else if (box.Text.Length == 1 && (c > '0' && c <= (_puzzle.GetLength(1) + '0')))
             {
                 int num = Convert.ToInt32(box.Text);
                 _puzzle[row, column] = num;
@@ -59,6 +66,7 @@ namespace Ksu.Cis300.SudokuSolver
             else if(box.Text == "0")
             {
                 box.Text = "";
+                _puzzle[row, column] = 0;
             }
             else
             {
@@ -71,6 +79,7 @@ namespace Ksu.Cis300.SudokuSolver
         private void AddPanels(int size)
         {
             uxFlowPanel.Controls.Clear();
+
             for( int i = 0; i < size; i++)
             {
 
@@ -86,6 +95,7 @@ namespace Ksu.Cis300.SudokuSolver
                 {
                     FlowLayoutPanel innerPanel = new FlowLayoutPanel();
                     innerPanel.Margin = new Padding(_margin);
+                    
                     panel.Controls.Add(innerPanel);
                 }   
 
@@ -94,24 +104,24 @@ namespace Ksu.Cis300.SudokuSolver
 
         private void AddTextBoxes(int size)
         {
-            _textBoxes = new TextBox[size, size];
-            _puzzle = new int[size, size];
+            _textBoxes = new TextBox[size*size, size*size];
+            _puzzle = new int[size*size, size*size];
             TextBox box;
 
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size* size; i++)
             {
-                for (int j = 0; j< size; j++)
+                for (int j = 0; j < size* size; j++)
                 {
                     box = new TextBox();
                     box.Font = _cellFont;
-                    box.Width = _fontSize;
+                    box.Width = box.Height; // check here *********
                     box.Margin = new Padding(0);
                     box.TextAlign = HorizontalAlignment.Center;
-                    box.Name = (i/size).ToString() + (j/size).ToString();
+                    box.Name = i.ToString() + j.ToString();
                     box.TextChanged += new EventHandler(CellTextChanged);
 
                     _textBoxes[i, j] = box;
-                    uxFlowPanel.Controls[i].Controls[j].Controls.Add(box);
+                    uxFlowPanel.Controls[i/size].Controls[j/size].Controls.Add(box);
                 }
 
 
@@ -124,7 +134,8 @@ namespace Ksu.Cis300.SudokuSolver
             {
                 foreach(Control c1 in c.Controls)
                 {
-                    c1.Controls[0].Size = new Size(size * size, size * size);
+                    c1.Size = new Size(size * c1.Controls[0].Height, size * c1.Controls[0].Height);
+                   
                 }
             }
         }
@@ -145,11 +156,13 @@ namespace Ksu.Cis300.SudokuSolver
 
         private void ux4x4_Click(object sender, EventArgs e)
         {
+            uxFlowPanel.Enabled = true;
             NewPuzzle(_smallBlock);
         }
 
         private void ux9x9_Click(object sender, EventArgs e)
         {
+            uxFlowPanel.Enabled = true;
             NewPuzzle(_block);
         }
 
@@ -159,8 +172,13 @@ namespace Ksu.Cis300.SudokuSolver
             {
                 for (int j = 0; j < _puzzle.GetLength(1); j++)
                 {
+                    
+                    
+                    if(_textBoxes[i, j].Text == "")
+                    {
+                        _textBoxes[i, j].Font = _valueFont;
+                    }
                     _textBoxes[i, j].Text = _puzzle[i, j].ToString();
-                    _textBoxes[i, j].Font = _valueFont;
                 }
             }
         }
@@ -169,15 +187,19 @@ namespace Ksu.Cis300.SudokuSolver
         {
             if (!Solver.Solve(_puzzle))
             {
+
                 MessageBox.Show("No Solution");
+                
             }
             else
             {
                 PlaceSolution();
+               
             }
 
             uxFlowPanel.Enabled = false;
             uxSolve.Enabled = false;
+
         }
     }
 }
